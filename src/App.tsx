@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
       {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
@@ -14,7 +15,7 @@ function App() {
           isLoaded ? "100" : "0"
         } bg-black text-gray-100`}
       >
-        <NavBar />
+        <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
     </>
   );
