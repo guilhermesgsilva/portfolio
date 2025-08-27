@@ -1,60 +1,78 @@
-import { useEffect } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "../lib/utils";
+import navItems from "../data/navItems.json";
 
-type NavBarProps = {
-  menuOpen: boolean;
-  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function NavBar({ menuOpen, setMenuOpen }: NavBarProps) {
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-  }, []);
+export default function Navbar() {
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-40 bg-[rgba(10, 10, 10, 0.8)] backdrop-blur-lg border-b border-white/10 shadow-lg">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <a href="#home" className="font-mono text-xl font-bold text-white">
-            Guilherme<span className="text-blue-500">.tech</span>
-          </a>
-          {/* Mobile */}
-          <div
-            className="w-7 h-5 relative cursor-pointer z-40 md:hidden"
-            onClick={() => setMenuOpen((prev) => !prev)}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-sm">
+      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* Logo / Name */}
+        <motion.a
+          href="#hero"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-xl font-bold text-[#065F46] dark:text-[#EAB308] tracking-tight"
+        >
+          MyPortfolio
+        </motion.a>
+
+        {/* Nav Links */}
+        <ul className="hidden md:flex gap-6 text-sm font-medium">
+          {navItems.map((item, i) => (
+            <motion.li
+              key={item.href}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <a
+                href={item.href}
+                className={cn(
+                  "relative transition",
+                  "text-slate-600 dark:text-slate-300",
+                  "hover:text-[#065F46] dark:hover:text-[#EAB308]"
+                )}
+              >
+                {item.label}
+              </a>
+            </motion.li>
+          ))}
+        </ul>
+
+        {/* Actions */}
+        <div className="flex items-center gap-3">
+          {/* Dark Mode Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setDarkMode(!darkMode)}
+            className={cn(
+              "transition-colors",
+              darkMode ? "text-[#EAB308]" : "text-[#065F46]"
+            )}
           >
-            &#9776;
-          </div>
-          {/* Tablet & Desktop */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="#home"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              About
-            </a>
-            <a
-              href="#projects"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Contact
-            </a>
-          </div>
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </Button>
+
+          {/* Language Switcher placeholder */}
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn(
+              "text-xs",
+              "border-slate-300 dark:border-slate-700",
+              "hover:bg-[#EAB308]/10 hover:border-[#EAB308]"
+            )}
+          >
+            EN
+          </Button>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
-
-export default NavBar;
