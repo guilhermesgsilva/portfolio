@@ -10,25 +10,25 @@ import { ThemeProvider } from "./context/useTheme";
 /* import { Contact } from "./components/sections/Contact"; */
 
 function App() {
-  /* const [isLoaded, setIsLoaded] = useState(true); */
+  /* const [isLoaded, setIsLoaded] = useState(false); */
   /* const [menuOpen, setMenuOpen] = useState(false); */
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider>
       {/* {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />} */}
       {/* <div
         className={`min-h-screen transition-opacity duration-700 opacity-${
           isLoaded ? "100" : "0"
         } bg-black text-gray-100`}
-      >
-        <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      > */}
+        <NavBar />
+        {/* <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Home />
         <About />
         <Projects />
-        <Contact />
-      </div> */}
-      <NavBar />
+        <Contact /> */}
+      {/* </div> */}
     </ThemeProvider>
   );
 }
