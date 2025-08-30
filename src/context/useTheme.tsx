@@ -1,6 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "light" | "system";
+export enum ThemeEnum {
+  LIGHT = "light",
+  DARK = "dark",
+  SYSTEM = "system",
+}
+
+const DEFAULT_THEME = ThemeEnum.SYSTEM;
+const STORAGE_KEY = "vite-ui-theme";
+
+type Theme = ThemeEnum;
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -12,12 +21,9 @@ type ThemeProviderState = {
 };
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: ThemeEnum.SYSTEM,
   setTheme: () => null,
 };
-
-const DEFAULT_THEME = "system";
-const STORAGE_KEY = "vite-ui-theme";
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
@@ -32,20 +38,20 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       setTheme(storedTheme);
     } else {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      setTheme(mediaQuery.matches ? "dark" : "light");
+      setTheme(mediaQuery.matches ? ThemeEnum.DARK : ThemeEnum.SYSTEM);
     }
   }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove("light", "dark");
+    root.classList.remove(ThemeEnum.SYSTEM, ThemeEnum.DARK);
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
-        ? "dark"
-        : "light";
+        ? ThemeEnum.DARK
+        : ThemeEnum.SYSTEM;
 
       root.classList.add(systemTheme);
       return;

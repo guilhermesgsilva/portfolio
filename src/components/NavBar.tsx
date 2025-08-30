@@ -3,7 +3,7 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "../lib/utils";
 import navItems from "../data/navItems.json";
-import { useTheme } from "@/context/useTheme";
+import { ThemeEnum, useTheme } from "@/context/useTheme";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -50,13 +50,15 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() =>
+              setTheme(theme === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK)
+            }
             className={cn(
               "transition-colors",
-              theme === "dark" ? "text-[#EAB308]" : "text-[#065F46]"
+              theme === ThemeEnum.DARK ? "text-[#EAB308]" : "text-[#065F46]"
             )}
           >
-            {theme === "dark" ? (
+            {theme === ThemeEnum.DARK ? (
               <Sun className="w-5 h-5" />
             ) : (
               <Moon className="w-5 h-5" />
