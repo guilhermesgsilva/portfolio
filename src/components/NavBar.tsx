@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "../lib/utils";
 import navItems from "../data/navItems.json";
+import { useTheme } from "@/context/useTheme";
 
 export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-sm">
@@ -50,13 +50,17 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setDarkMode(!darkMode)}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className={cn(
               "transition-colors",
-              darkMode ? "text-[#EAB308]" : "text-[#065F46]"
+              theme === "dark" ? "text-[#EAB308]" : "text-[#065F46]"
             )}
           >
-            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {theme === "dark" ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
           </Button>
 
           {/* Language Switcher placeholder */}
