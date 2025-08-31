@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "../lib/utils";
 import navItems from "../data/navItems.json";
 import { ThemeEnum, useTheme } from "@/context/useTheme";
+import { ListToggle } from "./ListToggle";
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
+  /* const { theme, setTheme } = useTheme(); */
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-sm">
@@ -47,11 +48,13 @@ export default function Navbar() {
         {/* Actions */}
         <div className="flex items-center gap-3">
           {/* Dark Mode Toggle */}
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             onClick={() =>
-              setTheme(theme === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK)
+              setTheme(
+                theme === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK
+              )
             }
             className={cn(
               "transition-colors",
@@ -63,7 +66,8 @@ export default function Navbar() {
             ) : (
               <Moon className="w-5 h-5" />
             )}
-          </Button>
+          </Button> */}
+          <ListToggle />
 
           {/* Language Switcher placeholder */}
           <Button
